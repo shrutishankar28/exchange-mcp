@@ -1,4 +1,3 @@
-// src/exchangeClient.ts
 import { config } from "./config.js";
 
 export interface Ticker {

@@ -1,4 +1,3 @@
-// src/proxy.ts
 import type { Request, Response } from "express";
 import Anthropic from "@anthropic-ai/sdk";
 import { config } from "./config.js";

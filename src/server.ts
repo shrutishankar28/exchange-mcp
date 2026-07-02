@@ -1,4 +1,3 @@
-// src/server.ts
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { registerTickerTools } from "./tools/tickers.js";
 

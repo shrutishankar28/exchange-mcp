@@ -1,4 +1,3 @@
-// src/config.ts
 import { config as loadEnv } from "dotenv";
 import { fileURLToPath } from "node:url";
 import path from "node:path";

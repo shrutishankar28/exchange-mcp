@@ -144,17 +144,17 @@ It expects the HTTP transport running locally (`npm run dev`) at
 ```
 src/
   config.ts          # env var loading
-  exchangeClient.ts   # Bitfinex REST API client
-  http.ts             # Express app for the HTTP transport
-  index.ts             # HTTP transport entrypoint (npm run dev / npm start)
-  stdio.ts             # stdio transport entrypoint (used by Claude Desktop)
-  server.ts             # McpServer construction, tool registration
-  proxy.ts              # /chat endpoint — Anthropic tool-calling loop over get_ticker
+  exchangeClient.ts  # Bitfinex REST API client
+  http.ts            # Express app for the HTTP transport
+  index.ts           # HTTP transport entrypoint (npm run dev / npm start)
+  stdio.ts           # stdio transport entrypoint (used by Claude Desktop)
+  server.ts          # McpServer construction, tool registration
+  proxy.ts           # /chat endpoint — Anthropic tool-calling loop over get_ticker
   exampleWidget/
-    ChatWidget.js        # standalone React chat widget (copy into your own app)
-    Wrapper.js            # example usage of ChatWidget
+    ChatWidget.js    # standalone React chat widget (copy into your own app)
+    Wrapper.js       # example usage of ChatWidget
   tools/
-    tickers.ts          # get_ticker tool definition
+    tickers.ts       # get_ticker tool definition
 ```
 
 ## Scripts
