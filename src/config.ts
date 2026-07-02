@@ -15,4 +15,5 @@ function required(key: string): string {
 export const config = {
   exchangeBaseUrl: required("EXCHANGE_BASE_URL"),
   port: parseInt(process.env.PORT ?? "3001", 10),
+  anthropicApiKey: required("ANTHROPIC_API_KEY"),
 };

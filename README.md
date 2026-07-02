@@ -35,12 +35,21 @@ cp .env.example .env
 ```env
 EXCHANGE_BASE_URL=https://api-pub.bitfinex.com
 PORT=3001
+ANTHROPIC_API_KEY=sk-ant-your-api-key-here
 ```
 
 - `EXCHANGE_BASE_URL` — Bitfinex REST API base URL. The default points at
   Bitfinex's production public API, so ticker data reflects real market
   prices.
 - `PORT` — only used by the HTTP transport (`npm start` / `npm run dev`).
+- `ANTHROPIC_API_KEY` — required by the `/chat` endpoint (`src/proxy.ts`),
+  which uses the Anthropic API to drive a tool-calling chat loop over
+  `get_ticker`. Get a key from the
+  [Anthropic Console](https://console.anthropic.com/). Not needed for the
+  stdio transport used by Claude Desktop — only for the HTTP transport's
+  `/chat` route.
+- Never commit `.env` — it's already in `.gitignore`. Only `.env.example`
+  (with placeholder values) should be tracked in git.
 
 `src/config.ts` loads `.env` from the project root regardless of the process's
 current working directory, so it works correctly even when a client (like
@@ -73,7 +82,6 @@ Claude Desktop launches MCP servers over **stdio**, so you'll point it at
    ```
 
 2. Open Claude Desktop's config file:
-
    - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
    - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
@@ -125,6 +133,17 @@ Claude Desktop shows a tool-call disclosure inline in the response when a
 connector tool fires — expand it to confirm `get_ticker` actually ran and see
 the raw request/response.
 
+## Example: React chat widget
+
+`src/exampleWidget/` contains a standalone React chat widget
+(`ChatWidget.js`) plus an example wrapper (`Wrapper.js`) showing how to
+render it. It's not part of the MCP server itself — copy `ChatWidget.js`
+into your own React project and render it (see `Wrapper.js` for the minimal
+usage) to get a floating chat UI that talks to the `/chat` endpoint.
+
+It expects the HTTP transport running locally (`npm run dev`) at
+`http://localhost:3001/chat` (see `PROXY_URL` in `ChatWidget.js` — update it
+
 ## Project structure
 
 ```
@@ -135,15 +154,19 @@ src/
   index.ts             # HTTP transport entrypoint (npm run dev / npm start)
   stdio.ts             # stdio transport entrypoint (used by Claude Desktop)
   server.ts             # McpServer construction, tool registration
+  proxy.ts              # /chat endpoint — Anthropic tool-calling loop over get_ticker
+  exampleWidget/
+    ChatWidget.js        # standalone React chat widget (copy into your own app)
+    Wrapper.js            # example usage of ChatWidget
   tools/
     tickers.ts          # get_ticker tool definition
 ```
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Run the HTTP transport with hot reload (`tsx`) |
+| Command         | Description                                        |
+| --------------- | -------------------------------------------------- |
+| `npm run dev`   | Run the HTTP transport with hot reload (`tsx`)     |
 | `npm run stdio` | Run the stdio transport (what Claude Desktop uses) |
-| `npm run build` | Type-check and compile to `dist/` |
-| `npm start` | Run the compiled HTTP server from `dist/` |
+| `npm run build` | Type-check and compile to `dist/`                  |
+| `npm start`     | Run the compiled HTTP server from `dist/`          |

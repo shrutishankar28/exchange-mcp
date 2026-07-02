@@ -1,10 +1,10 @@
 // src/http.ts
-// src/http.ts
 import express from "express";
 import type { Request, Response } from "express";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import type { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { createServer } from "./server.js";
+import { chatHandler } from "./proxy.js";
 
 export function createApp() {
   const app = express();
@@ -35,6 +35,8 @@ export function createApp() {
       }
     }
   });
+
+  app.post("/chat", chatHandler);
 
   // Health check endpoint
   app.get("/health", (_req, res) => {
