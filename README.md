@@ -19,7 +19,7 @@ Two transports are included:
 ## 1. Install
 
 ```bash
-git clone <this-repo-url>
+git clone https://github.com/shrutishankar28/exchange-mcp.git
 cd exchange-mcp
 npm install
 ```
