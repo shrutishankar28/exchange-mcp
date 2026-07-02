@@ -156,12 +156,3 @@ src/
   tools/
     tickers.ts       # get_ticker tool definition
 ```
-
-## Scripts
-
-| Command         | Description                                        |
-| --------------- | -------------------------------------------------- |
-| `npm run dev`   | Run the HTTP transport with hot reload (`tsx`)     |
-| `npm run stdio` | Run the stdio transport (what Claude Desktop uses) |
-| `npm run build` | Type-check and compile to `dist/`                  |
-| `npm start`     | Run the compiled HTTP server from `dist/`          |
