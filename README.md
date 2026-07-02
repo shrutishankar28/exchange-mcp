@@ -48,8 +48,6 @@ ANTHROPIC_API_KEY=sk-ant-your-api-key-here
   [Anthropic Console](https://console.anthropic.com/). Not needed for the
   stdio transport used by Claude Desktop — only for the HTTP transport's
   `/chat` route.
-- Never commit `.env` — it's already in `.gitignore`. Only `.env.example`
-  (with placeholder values) should be tracked in git.
 
 `src/config.ts` loads `.env` from the project root regardless of the process's
 current working directory, so it works correctly even when a client (like
@@ -126,9 +124,6 @@ server) and ask something like:
 
 > What's the current ticker for tBTCUSD on Bitfinex?
 
-Use Bitfinex's raw symbol format (e.g. `tBTCUSD`, `tETHUSD` — note the
-leading `t`), since that's what `get_ticker` expects.
-
 Claude Desktop shows a tool-call disclosure inline in the response when a
 connector tool fires — expand it to confirm `get_ticker` actually ran and see
 the raw request/response.
@@ -142,7 +137,7 @@ into your own React project and render it (see `Wrapper.js` for the minimal
 usage) to get a floating chat UI that talks to the `/chat` endpoint.
 
 It expects the HTTP transport running locally (`npm run dev`) at
-`http://localhost:3001/chat` (see `PROXY_URL` in `ChatWidget.js` — update it
+`http://localhost:3001/chat` (see `PROXY_URL` in `ChatWidget.js` — update it if your server runs elsewhere).
 
 ## Project structure
 
